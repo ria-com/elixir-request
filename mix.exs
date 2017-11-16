@@ -13,7 +13,7 @@ defmodule Ria.Task.Mixfile do
   end
 
   def application do
-    [extra_applications: []]
+    [extra_applications: [:httpoison]]
   end
 
   defp deps do
