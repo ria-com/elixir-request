@@ -3,7 +3,7 @@ defmodule Ria.Task.Mixfile do
 
   def project do
     [
-      app: :ria_task,
+      app: :ria_request,
       version: "0.1.0",
       elixir: "~> 1.4",
       build_embedded: Mix.env == :prod,
