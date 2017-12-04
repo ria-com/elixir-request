@@ -13,7 +13,7 @@ defmodule Ria.Request do
   end
   def json(url, body), do: json(url, body, [{"Accept", "application/json"}, {"Content-Type", "application/json"}])
   def json(url, body, headers) do
-    case HTTPoison.post(url, body, headers) do
+    case HTTPoison.post(url, body, headers, hackney: [:insecure]) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> Poison.decode! body
       {:ok, %HTTPoison.Response{status_code: 201, body: body}} -> Poison.decode! body
       _ -> nil
