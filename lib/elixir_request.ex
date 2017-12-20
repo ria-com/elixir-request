@@ -5,13 +5,11 @@ defmodule Ria.Request do
 
   def json(url), do: json(url, [{"Accept", "application/json"}, {"Content-Type", "application/json"}])
   def json(url, headers) when is_list(headers) do
-    case
-      case HTTPoison.get(url, headers) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> Poison.decode body
-        {:ok, %HTTPoison.Response{status_code: 201, body: body}} -> Poison.decode body
-        _ -> nil
-      end
-    do
+    case (case HTTPoison.get(url, headers) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> Poison.decode body
+      {:ok, %HTTPoison.Response{status_code: 201, body: body}} -> Poison.decode body
+      _ -> nil
+    end) do
       nil -> nil
       {:error, _} -> nil
       {:ok, data} -> data
@@ -19,13 +17,11 @@ defmodule Ria.Request do
   end
   def json(url, body), do: json(url, body, [{"Accept", "application/json"}, {"Content-Type", "application/json"}])
   def json(url, body, headers) do
-    case
-      case HTTPoison.post(url, body, headers, hackney: [:insecure]) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> Poison.decode body
-        {:ok, %HTTPoison.Response{status_code: 201, body: body}} -> Poison.decode body
-        _ -> nil
-      end
-    do
+    case (case HTTPoison.post(url, body, headers, hackney: [:insecure]) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> Poison.decode body
+      {:ok, %HTTPoison.Response{status_code: 201, body: body}} -> Poison.decode body
+      _ -> nil
+    end) do
       nil -> nil
       {:error, _} -> nil
       {:ok, data} -> data
