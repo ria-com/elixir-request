@@ -52,6 +52,7 @@ defmodule Ria.Request do
     end
   end
 
+
   def elasticsearch(url, fields \\ nil, query \\ %{match_all: %{}}, sort \\ [%{_script: %{script: "Math.random()",type: "string",order: "asc"}}], size \\ 1) do
     json(url,
       Poison.encode!(%{
