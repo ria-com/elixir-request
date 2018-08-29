@@ -42,6 +42,15 @@ defmodule Ria.Request do
       _ -> ""
     end
   end
+  
+  def xml(url, body) do
+    case HTTPoison.post(url, body, [{"Accept", "text/xml"},{"Content-type", "text/xml; charset=utf-8"}]) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> body
+      {:ok, %HTTPoison.Response{status_code: 201, body: body}} -> body
+      {:ok, %HTTPoison.Response{status_code: 500, body: body}} -> body
+      _ -> ""
+    end
+  end
 
   def elasticsearch(url, fields \\ nil, query \\ %{match_all: %{}}, sort \\ [%{_script: %{script: "Math.random()",type: "string",order: "asc"}}], size \\ 1) do
     json(url,
